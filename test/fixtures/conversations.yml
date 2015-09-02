@@ -1,0 +1,18 @@
+# == Schema Information
+#
+# Table name: conversations
+#
+#  id         :integer          not null, primary key
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  homeowner_id: 1
+  contractor_id: 1
+
+two:
+  homeowner_id: 1
+  contractor_id: 1

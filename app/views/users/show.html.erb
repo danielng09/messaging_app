@@ -1,0 +1,9 @@
+<h1>My Conversations</h1>
+
+<% @conversations.each do |conversation| %>
+  <ol>
+  <% conversation.each do |participant| %>
+    <li><%= participant.email %></li>
+  <% end %>
+  </ol>
+<% end %>

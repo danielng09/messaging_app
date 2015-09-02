@@ -1,0 +1,24 @@
+<h1>New Message</h1>
+
+<form action="<%= messages_url %>" method="POST">
+
+  <br>
+  <input type="text"
+         name="message[to_email]"
+         placeholder="to"></input>
+  <br>
+
+  <br>
+  <input type="text"
+         name="message[subject]"
+         placeholder="subject"></input>
+  <br>
+
+  <br>
+  <textarea
+         name="message[body]"
+         placeholder="type your message here..."></textarea>
+  <br>
+
+  <input type="submit" value="Send">
+</form>
