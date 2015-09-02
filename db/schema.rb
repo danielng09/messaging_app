@@ -28,7 +28,10 @@ ActiveRecord::Schema.define(version: 20150902185507) do
   create_table "conversations", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean  "active",     null: false
   end
+
+  add_index "conversations", ["active"], name: "index_conversations_on_active", using: :btree
 
   create_table "messages", force: :cascade do |t|
     t.string   "subject",         null: false
@@ -36,13 +39,11 @@ ActiveRecord::Schema.define(version: 20150902185507) do
     t.integer  "conversation_id", null: false
     t.integer  "from_id",         null: false
     t.integer  "to_id",           null: false
-    t.boolean  "active",          null: false
     t.boolean  "read",            null: false
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
   end
 
-  add_index "messages", ["active"], name: "index_messages_on_active", using: :btree
   add_index "messages", ["conversation_id"], name: "index_messages_on_conversation_id", using: :btree
   add_index "messages", ["read"], name: "index_messages_on_read", using: :btree
 
