@@ -23,7 +23,9 @@ ActiveRecord::Schema.define(version: 20150902185507) do
     t.datetime "updated_at",      null: false
   end
 
+  add_index "conversation_participants", ["conversation_id"], name: "index_conversation_participants_on_conversation_id", using: :btree
   add_index "conversation_participants", ["user_id", "conversation_id"], name: "index_conversation_participants_on_user_id_and_conversation_id", unique: true, using: :btree
+  add_index "conversation_participants", ["user_id"], name: "index_conversation_participants_on_user_id", using: :btree
 
   create_table "conversations", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -45,7 +47,9 @@ ActiveRecord::Schema.define(version: 20150902185507) do
   end
 
   add_index "messages", ["conversation_id"], name: "index_messages_on_conversation_id", using: :btree
+  add_index "messages", ["from_id"], name: "index_messages_on_from_id", using: :btree
   add_index "messages", ["read"], name: "index_messages_on_read", using: :btree
+  add_index "messages", ["to_id"], name: "index_messages_on_to_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",           null: false
@@ -57,6 +61,7 @@ ActiveRecord::Schema.define(version: 20150902185507) do
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["homeowner"], name: "index_users_on_homeowner", using: :btree
   add_index "users", ["session_token"], name: "index_users_on_session_token", using: :btree
 
 end

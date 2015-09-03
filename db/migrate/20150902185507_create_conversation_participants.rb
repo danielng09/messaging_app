@@ -8,5 +8,7 @@ class CreateConversationParticipants < ActiveRecord::Migration
     end
 
     add_index :conversation_participants, [:user_id, :conversation_id], unique: true
+    add_index :conversation_participants, :user_id
+    add_index :conversation_participants, :conversation_id
   end
 end

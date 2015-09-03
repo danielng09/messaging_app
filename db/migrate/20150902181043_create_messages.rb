@@ -11,6 +11,8 @@ class CreateMessages < ActiveRecord::Migration
     end
 
     add_index :messages, :conversation_id
+    add_index :messages, :from_id
+    add_index :messages, :to_id
     add_index :messages, :read
   end
 end

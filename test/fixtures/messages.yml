@@ -8,7 +8,6 @@
 #  conversation_id :integer          not null
 #  from_id         :integer          not null
 #  to_id           :integer          not null
-#  active          :boolean          not null
 #  read            :boolean          not null
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null

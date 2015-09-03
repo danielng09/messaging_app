@@ -21,6 +21,55 @@ class User < ActiveRecord::Base
   has_many :conversations, through: :conversation_participants, source: :conversation
   has_many :sent_messages, class_name: 'Message', foreign_key: :from_id
 
+  def create_conversation(user_id)
+    raise 'only homeowners can start conversations!' unless self.homeowner
+    raise 'user can only message contractors' if User.find(user_id).homeowner
+
+    convo = self.conversations.create!(active: true)
+    convo.conversation_participants.create!({user_id: user_id})
+    convo
+  end
+
+  def send_message(subject, body, *user_ids)
+    user_ids.each do |user_id|
+      convo = Conversation.find_by_ids(user_id, self.id).first
+      unless convo
+        convo = create_conversation(user_id)
+      end
+      convo.messages.create({ to_id: user_id,
+                            from_id: self.id,
+                            subject: subject,
+                            body: body,
+                            read: false})
+    end
+  end
+
+  def terminate_conversation(user_id)
+    raise 'only Homeowners can terminate conversations!' unless self.homeowner
+    Conversation.find_by_ids(user_id, self.id).first.terminate
+  end
+
+  def respond(subject, body, message)
+    message.update!({ read: true })
+    Message.create!({ to_id: message.from_id,
+                     from_id: message.to_id,
+                     conversation_id: message.conversation_id,
+                     subject: subject,
+                     body: body,
+                     read: false})
+  end
+
+  def active_conversations
+    self.conversations.where(active: true)
+  end
+
+  def list_messages(conversation)
+    conversation.messages
+  end
+
+  def unread_messages
+    Message.unread_messages(self.id).size
+  end
 
  attr_reader :password
 
