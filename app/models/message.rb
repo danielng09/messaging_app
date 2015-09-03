@@ -14,6 +14,8 @@
 #
 
 class Message < ActiveRecord::Base
+  validates :subject, :body, :conversation_id, :from_id, :to_id, :read, presence: true
+
   belongs_to :owner, class_name: 'User', foreign_key: 'from_id'
   belongs_to :recipient, class_name: 'User', foreign_key: 'to_id'
   belongs_to :conversation

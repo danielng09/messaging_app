@@ -9,6 +9,8 @@
 #
 
 class Conversation < ActiveRecord::Base
+  validates :active, presence: true
+
   has_many :conversation_participants
   has_many :messages
   has_many :participants, through: :conversation_participants, source: :user

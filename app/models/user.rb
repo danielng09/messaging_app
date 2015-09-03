@@ -12,7 +12,7 @@
 #
 
 class User < ActiveRecord::Base
-  validates :email, :password_digest, :session_token, presence: true
+  validates :homeowner, :email, :password_digest, :session_token, presence: true
   validates :email, uniqueness: true
   validate :ensure_session_token
   after_initialize :ensure_session_token
